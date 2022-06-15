@@ -1,9 +1,60 @@
-﻿@page "/"
+﻿@using Blazordex.Clients;
+@using Blazordex.Models;
+@using Blazordex.Shared.Components;
 
-<PageTitle>Index</PageTitle>
+@page "/"
 
-<h1>Hello, world!</h1>
+@inject PokeClient PokeClient
+@inject NavigationManager NavigationManager
 
-Welcome to your new app.
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<PageTitle>Pokedex</PageTitle>
+
+<form @onsubmit="SearchPokemon">
+  <input placeholder="Search pokemon..." @bind-value="@search" />
+  <button type="submit">Search</button>
+</form>
+
+<div class="pokemon-cards">
+  @foreach (var item in pokemons)
+  {
+    <PokemonCard Url="@item.Url"></PokemonCard>
+  }
+</div>
+
+@if (hasNext)
+{
+  <button Raised="true" @onclick="LoadPokemons">
+    Load more
+  </button>
+}
+
+@code {
+
+  private List<NamedModel> pokemons = new List<NamedModel>();
+  private bool hasNext;
+
+  private string search;
+
+  protected override async Task OnInitializedAsync()
+  {
+    await LoadPokemons();
+  }
+
+  private async Task LoadPokemons()
+  {
+    var result = await PokeClient.GetPokemons(offset: pokemons.Count);
+
+    hasNext = result?.NextPage is not null;
+
+    pokemons.AddRange(result.Pokemons);
+  }
+
+  private async Task SearchPokemon()
+  {
+    if (!string.IsNullOrWhiteSpace(search))
+    {
+      NavigationManager.NavigateTo($"/pokemon/{search}");
+    };
+  }
+}
