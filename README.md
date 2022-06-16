@@ -7,12 +7,15 @@
  - Renderización Listas
  - Enrutado simple
  - Formulario para manejar una búsqueda
+ - Continuous Deployment con GitHub Actions
 
  **Imagen del proyecto**
 
  ## Stack
- - .NET 6 y Blazor
- - [.NET CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/)
+ - .NET 6 + Blazor
+ - Bootstrap v5
+ - [.NET CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/) + Firebase CLI (vía npm)
+ - GitHub Actions + Firebase Hosting
  - VSCode
 
  ## Descripción de los pasos efectuados
@@ -65,9 +68,50 @@ Creación de la clase `PokeClient` que utiliza los métodos:
 
  En particular, los componentes `<PokemonCard>`, `<PokemonTypes>` serán consumidos por las páginas.
 
+ #### 5.1 Creación de Backgrounds personalizados
+ En función de los tipos de cada Pokemon se añade un background personalizado. El código reside en: [PokemonCard.razor](/Shared/Components/PokemonCard.razor)
+ - Utilizamos un [Diccionario](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.dictionary-2.-ctor?view=net-6.0) para mapear los colores. `Key` es el Identificador y `Value` es el color rgb.
+ - El método `getBackgroundByType()` es el encargado de asignar los backgrounds a cada tarjeta.
+
  ### 6. Creación de Páginas
  - Las páginas residen en [/Pages](/Pages/)
 
  El proyecto sólo utiliza dos páginas: [Index](/Pages/Index.razor) y [PokemonDetails](/Pages/PokemonDetails.razor)
+
+ ### 7. Dar un poco de estilo
+ Los estilos están distribuídos en:
+  - Clases para los elementos en Bootstrap, y
+  - En los `.css` asociados a cada archivo `.razor` para los detalles más personalizados.
+  - CSS inline para los `backgrounds` en función de los tipos de cada Pokemon.
+
+### 8. Continuous Deployment 
+ 1. Crear un nuevo proyecto en [Firebase](https://console.firebase.google.com/)
+ 2. Instalar firebase CLI
+ ```
+npm install -g firebase-tools
+ ```
+ 3. Asegurarse de tener abierto VSCode como administrador (Lo necesitaras para ejecutar comandos de firebase)
+ 4. Cambiar la directiva de ejecución: [Documentación](https://docs.microsoft.com/es-es/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.2) - [Solución](https://github.com/firebase/firebase-tools/issues/1627)
+ ```
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope CurrentUser
+ ```
+ 5. Login en Firebase
+ ```
+firebase login
+ ```
+ 6. Inicializar el proyecto y seguir los pasos de Firebase CLI
+ ```
+firebase init
+ ```
+ 7. Publicar en el directorio `release/wwwroot`
+ 8. Script para ejecutar antes de cada deploy
+  ```
+dotnet publish -c Release -o release
+ ```
+
+
+#### Agradecimientos a:
+ - Adre Lopes - @alopes2 : Por mostrar sus [conocimientos](https://medium.com/geekculture/creating-a-pokedex-with-blazor-webassembly-677b5bcf3593) de una forma divertida.
+ - @ssmkhrj - Por la [inspiración](https://ssmkhrj.github.io/Pokemon-Pokedex/).
 
 
