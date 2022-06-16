@@ -1,4 +1,4 @@
-.pokemon-card {
+/*.pokemon-card {
     border: 1px solid black;
     border-radius: 5px;
     padding: 10px;
@@ -15,12 +15,12 @@
   .pokemon-card img {
     height: 96px;
     width: 96px;
-  }
+  } */
   
   .pokemon-type {
     display:inline-block;
-    padding: 5px;
-    border: 1px solid #00000033;
+    padding: 5px 10px;
+    /*border: 1px solid #00000033;*/
     border-radius: 5px;
     color: white;
     text-transform: uppercase;

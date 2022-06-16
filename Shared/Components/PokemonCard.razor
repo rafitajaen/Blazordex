@@ -4,19 +4,26 @@
 
 
 <a href="@pokemonLink">
-  <div class="pokemon-card">
+  <div class="pokemon-card d-inline-flex" style="@pokemonBackground">
+    
     @if (isLoading)
     {
       <p> Loading...</p>
     }
     else
     {
+      <div class="pokemon-container ">
       <img src="@pokemon.Sprites.Default">
-      <p>@pokemon.Name</p>
+    
+      <div class="pokemon-id"><span class="pokemon-id-text  text-white fw-semibold">#@pokemon.Id</span></div>
+      <span class="fw-bold text-dark">@pokemon.Name</span>
       <PokemonTypes Types="@pokemon.Types"></PokemonTypes>
+      </div>
     }
+    
   </div>
-</a>
+  </a>
+
 
 @code {
   [Parameter]
@@ -28,10 +35,66 @@
 
   private string pokemonLink = "";
 
+  private string pokemonBackground ="";
+
+  private static Dictionary<string,string> backgroundDictionary = new Dictionary<string, string> ();
+
+ 
+
   protected override async Task OnInitializedAsync()
   {
+    
+
     pokemon = await PokeClient.GetPokemon(Url);
     isLoading = false;
     pokemonLink = "/pokemon/" + pokemon.Id;
+    pokemonBackground = getBackgroundByTypes();
   }
-}
+
+  private void initializeDictionary(){
+        backgroundDictionary.Add("GRASS","rgb(210, 242, 194)");
+        backgroundDictionary.Add("POISON","rgb(247, 205, 247)");
+        backgroundDictionary.Add("FIRE","rgb(255, 209, 181)");
+        backgroundDictionary.Add("FLYING","rgb(234, 227, 255)");
+        backgroundDictionary.Add("BUG","rgb(224, 232, 162)");
+        backgroundDictionary.Add("WATER","rgb(194, 243, 255)");
+        backgroundDictionary.Add("NORMAL","rgb(230, 230, 195)");
+        backgroundDictionary.Add("ELECTRIC","rgb(255, 241, 186)");
+        backgroundDictionary.Add("GROUND","rgb(224, 204, 177)");
+        backgroundDictionary.Add("FAIRY","rgb(255, 222, 229)");
+        backgroundDictionary.Add("PSYCHIC","rgb(255, 201, 218)");
+        backgroundDictionary.Add("FIGHTING","rgb(252, 173, 169)");
+        backgroundDictionary.Add("ROCK","rgb(224, 204, 177)");
+        backgroundDictionary.Add("STEEL","rgb(230, 234, 240)");
+        backgroundDictionary.Add("ICE","rgb(232, 254, 255)");
+        backgroundDictionary.Add("GHOST","rgb(219, 186, 255)");
+    }
+
+    private string getBackgroundByTypes(){
+      string output="background: black;";
+
+      if (backgroundDictionary.Count==0) initializeDictionary();
+      
+      if(pokemon.Types.Length==1){
+        string key= pokemon.Types[0].Type.Name.ToUpper();
+        string value = "";
+        if (backgroundDictionary.TryGetValue(key, out value)) return $"background: {value}";
+      }
+      else if(pokemon.Types.Length==2){
+        string key1= pokemon.Types[0].Type.Name.ToUpper();
+        string value1 = "";
+        string key2= pokemon.Types[1].Type.Name.ToUpper();
+        string value2 = "";
+        if (backgroundDictionary.TryGetValue(key1, out value1) && backgroundDictionary.TryGetValue(key2, out value2)) return $"background: linear-gradient(150deg, {value1} 50%, {value2} 50%);";
+      }
+      return output;
+    } 
+
+    
+  }
+
+
+
+  
+
+  
