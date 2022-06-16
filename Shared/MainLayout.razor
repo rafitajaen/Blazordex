@@ -1,13 +1,23 @@
 ﻿@inherits LayoutComponentBase
 
+@inject NavigationManager NavigationManager
+
 <div class="page">
+    
     <div class="sidebar">
         <NavMenu />
-    </div>
+    </div> 
 
     <main>
-        <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+        <div class="top-row px-2 d-flex flex-md-row justify-content-md-between">
+
+            <span class="subtitle text-secondary fw-semibold fs-6">A Pokedex made with Blazor</span>
+            
+            <form id="search" @onsubmit="SearchPokemon">
+                <i class="oi oi-magnifying-glass" aria-hidden="true"></i> 
+                <input placeholder="Search by name or id..." type="search" @bind-value="@search" />
+                <!--<button type="submit">Search</button>-->
+            </form>
         </div>
 
         <article class="content px-4">
@@ -15,3 +25,16 @@
         </article>
     </main>
 </div>
+
+@code {
+
+    private string search;
+
+    private async Task SearchPokemon()
+  {
+    if (!string.IsNullOrWhiteSpace(search))
+    {
+      NavigationManager.NavigateTo($"/pokemon/{search}");
+    };
+  }
+}

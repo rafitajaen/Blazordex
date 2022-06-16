@@ -5,15 +5,12 @@
 @page "/"
 
 @inject PokeClient PokeClient
-@inject NavigationManager NavigationManager
 
 
-<PageTitle>Pokedex</PageTitle>
 
-<form @onsubmit="SearchPokemon">
-  <input placeholder="Search pokemon..." @bind-value="@search" />
-  <button type="submit">Search</button>
-</form>
+<PageTitle>Blazordex | Pokedex made with Blazor</PageTitle>
+
+
 
 <div class="pokemon-cards">
   @foreach (var item in pokemons)
@@ -24,9 +21,11 @@
 
 @if (hasNext)
 {
-  <button Raised="true" @onclick="LoadPokemons">
-    Load more
-  </button>
+  <div class="d-grid gap-2">
+    <button class="btn btn-warning mb-4 " Raised="true" @onclick="LoadPokemons">
+      Load more
+    </button>
+  </div>
 }
 
 @code {
@@ -50,11 +49,5 @@
     pokemons.AddRange(result.Pokemons);
   }
 
-  private async Task SearchPokemon()
-  {
-    if (!string.IsNullOrWhiteSpace(search))
-    {
-      NavigationManager.NavigateTo($"/pokemon/{search}");
-    };
-  }
+  
 }

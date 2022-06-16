@@ -1,6 +1,6 @@
 ﻿<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">Blazordex</a>
+        <a class="navbar-brand fw-bold fs-4" href="">Blazordex</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -8,22 +8,16 @@
 </div>
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
+    <nav class="flex-column justify-content-between">
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
+            <NavLink class="nav-link" href="https://github.com/rafitajaen/Blazordex" Match="NavLinkMatch.All">
+                <span class="oi oi-book" aria-hidden="true"></span> Documentation
             </NavLink>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
-            </NavLink>
+            <p class="text-light  text text-center" style="font-size: 12px; margin-bottom: 0px;">Made with <span style="color: #e25555;">&#9829;</span> in Blazor by <a href="https://github.com/rafitajaen/" style="display: inline;">@@rafitajaen</a></p>
         </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-            </NavLink>
-        </div>
+      
     </nav>
 </div>
 
