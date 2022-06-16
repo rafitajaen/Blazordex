@@ -1,22 +1,30 @@
 # Blazerdex
  Creando una Pokedex con Blazor WebAssembly. La aplicación obtiene la información haciendo peticiones HTTP a [PokeAPI](https://pokeapi.co/).
 
-## Elementos del Proyecto
+ Puedes ver el resultado final en el siguiente enlace: https://blazordex.web.app
 
+## Objetivos del Proyecto
+
+ - Utilizar Blazor
  - Peticiones HTTP a PokeAPI
  - Renderización Listas
  - Enrutado simple
  - Formulario para manejar una búsqueda
  - Continuous Deployment con GitHub Actions
 
- **Imagen del proyecto**
 
- ## Stack
+ ## Stack Utilizado
  - .NET 6 + Blazor
  - Bootstrap v5
  - [.NET CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/) + Firebase CLI (vía npm)
  - GitHub Actions + Firebase Hosting
  - VSCode
+
+
+ ## Screenshots
+
+ ![Imagen del proyecto](/Assets/Blazordex-screenshot.jpg)
+
 
  ## Descripción de los pasos efectuados
 
@@ -84,13 +92,15 @@ Creación de la clase `PokeClient` que utiliza los métodos:
   - En los `.css` asociados a cada archivo `.razor` para los detalles más personalizados.
   - CSS inline para los `backgrounds` en función de los tipos de cada Pokemon.
 
+  
+
 ### 8. Continuous Deployment 
  1. Crear un nuevo proyecto en [Firebase](https://console.firebase.google.com/)
  2. Instalar firebase CLI
  ```
 npm install -g firebase-tools
  ```
- 3. Asegurarse de tener abierto VSCode como administrador (Lo necesitaras para ejecutar comandos de firebase)
+ 3. Asegurarse de tener abierto VSCode como administrador (*Lo necesitaras para ejecutar comandos de firebase*)
  4. Cambiar la directiva de ejecución: [Documentación](https://docs.microsoft.com/es-es/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.2) - [Solución](https://github.com/firebase/firebase-tools/issues/1627)
  ```
 Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope CurrentUser
@@ -110,8 +120,8 @@ dotnet publish -c Release -o release
  ```
 
 
-#### Agradecimientos a:
- - Adre Lopes - @alopes2 : Por mostrar sus [conocimientos](https://medium.com/geekculture/creating-a-pokedex-with-blazor-webassembly-677b5bcf3593) de una forma divertida.
- - @ssmkhrj - Por la [inspiración](https://ssmkhrj.github.io/Pokemon-Pokedex/).
+**Agradecimiento especial**
+
+A Adre Lopes - [@alopes2](https://github.com/alopes2) por mostrar sus [conocimientos](https://medium.com/geekculture/creating-a-pokedex-with-blazor-webassembly-677b5bcf3593) de una forma divertida y a [@ssmkhrj](https://github.com/ssmkhrj) por la [inspiración](https://ssmkhrj.github.io/Pokemon-Pokedex/).
 
 
